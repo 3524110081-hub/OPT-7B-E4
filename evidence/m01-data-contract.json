@@ -7,15 +7,25 @@
     "make run"
   ],
   "results": {
-    "starterBase": "pending_team_execution"
+    "database": "PostgreSQL 16",
+    "applicationRuntime": "Node.js",
+    "migrations": "passed",
+    "syntheticSeed": "passed",
+    "automatedTests": "passed",
+    "normalCase": "passed",
+    "lowerBoundary": "passed",
+    "upperBoundary": "passed",
+    "declaredFailure": "passed"
   },
   "assumptions": [
-    "El equipo elegirá y documentará el lenguaje de la aplicación.",
-    "AWS Academy Learner Lab se usará solo si el servicio está habilitado.",
-    "Los datos iniciales serán sintéticos."
+    "JavaScript con Node.js se utilizará para el desarrollo de la aplicación.",
+    "PostgreSQL 16 se utiliza como base de datos relacional.",
+    "Docker Compose se utiliza como entorno local reproducible.",
+    "AWS Academy Learner Lab se utilizará cuando el servicio esté habilitado.",
+    "Los datos utilizados para desarrollo y pruebas son sintéticos."
   ],
   "limitations": [
-    "La base inicial no es una implementación completa de M01.",
-    "La imagen local de DynamoDB debe fijarse y reportarse cuando el equipo la use."
+    "La ejecución actual fue validada principalmente en el entorno local con Docker Compose.",
+    "La ejecución en AWS Academy depende de la disponibilidad del servicio."
   ]
 }
