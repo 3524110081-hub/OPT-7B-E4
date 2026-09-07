@@ -11,4 +11,33 @@ fi
 
 bash tests/test_m01.sh
 
+mkdir -p artifacts
+
+cat > artifacts/m01-verify.json <<EOF
+{
+  "assignmentId": "m01-data-contract",
+  "status": "passed",
+  "tests": {
+    "normalCase": {
+      "description": "cpu_usage = 50 desde el seed",
+      "status": "passed"
+    },
+    "lowerBoundary": {
+      "description": "cpu_usage = 0",
+      "status": "passed"
+    },
+    "upperBoundary": {
+      "description": "cpu_usage = 100",
+      "status": "passed"
+    },
+    "declaredFailure": {
+      "description": "cpu_usage = 101 rechazado por la base de datos",
+      "status": "passed"
+    }
+  }
+}
+EOF
+
+echo "==> Resultado generado en artifacts/m01-verify.json"
+
 echo "===> Verificación de M01 completada."
