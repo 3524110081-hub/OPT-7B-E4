@@ -1,0 +1,29 @@
+{
+  "assignmentId": "m02-relational-model",
+  "commitSha": "REPLACE_AT_SUBMISSION",
+  "commands": [
+    "make setup",
+    "make verify",
+    "make run"
+  ],
+  "results": {
+    "relationalModel": "passed",
+    "idempotentMigrations": "passed",
+    "parameterizedQueries": "passed",
+    "normalCase": "passed",
+    "emptyCase": "passed",
+    "boundaryCase": "passed",
+    "declaredFailure": "passed",
+    "machineReadableArtifact": "artifacts/m02-verify.json"
+  },
+  "assumptions": [
+    "PostgreSQL 16 se utiliza como base de datos relacional.",
+    "Docker Compose proporciona el entorno local reproducible.",
+    "Los datos utilizados para desarrollo y pruebas son sinteticos.",
+    "Las consultas parametrizadas utilizan PREPARE y EXECUTE de PostgreSQL."
+  ],
+  "limitations": [
+    "La validacion en AWS Academy Learner Lab depende de la disponibilidad del servicio.",
+    "La validacion actual utiliza Docker Compose como entorno local de respaldo."
+  ]
+}

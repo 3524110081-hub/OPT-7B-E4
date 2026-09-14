@@ -14,6 +14,7 @@ setup:
 verify:
 	@bash scripts/verify_base.sh
 	@bash scripts/verify_m01.sh
+	@bash scripts/verify_m02.sh
 
 run:
 	@docker compose up
