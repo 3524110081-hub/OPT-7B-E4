@@ -6,6 +6,7 @@ setup:
 	@docker compose up -d postgres
 	@echo "Esperando a PostgreSQL..."
 	@until docker compose exec -T postgres pg_isready -U $${POSTGRES_USER:-cdrl_dev} -d $${POSTGRES_DB:-cdrl} > /dev/null 2>&1; do sleep 1; done
+	@sleep 2
 	@bash scripts/migrate.sh
 	@bash scripts/seed.sh
 	@echo "CDRL M01 preparado correctamente."
