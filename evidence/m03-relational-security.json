@@ -1,0 +1,74 @@
+{
+  "assignmentId": "m03-relational-security",
+  "commitSha": "REPLACE_AT_SUBMISSION",
+  "commands": [
+    "make setup",
+    "make verify",
+    "make run"
+  ],
+  "results": {
+    "rolesConfigured": "passed",
+    "readerSelect": "passed",
+    "writerInsert": "passed",
+    "operatorSelect": "passed",
+    "readerInsertDenied": "passed",
+    "readerUpdateDenied": "passed",
+    "writerAlterDenied": "passed",
+    "operatorTelemetryDenied": "passed",
+    "secretsNotVersioned": "passed",
+    "migratorSchemaOperation": "passed"
+  },
+  "roles": {
+    "role_reader": {
+      "purpose": "Lectura de datos",
+      "verifiedBehavior": [
+        "SELECT sobre devices permitido",
+        "SELECT sobre telemetry_events permitido",
+        "INSERT sobre devices denegado",
+        "UPDATE sobre devices denegado"
+      ]
+    },
+    "role_writer": {
+      "purpose": "Escritura de datos",
+      "verifiedBehavior": [
+        "SELECT permitido",
+        "INSERT permitido",
+        "UPDATE permitido",
+        "DELETE permitido",
+        "ALTER TABLE denegado"
+      ]
+    },
+    "role_operator": {
+      "purpose": "Operacion limitada",
+      "verifiedBehavior": [
+        "SELECT sobre devices permitido",
+        "Acceso a telemetry_events denegado"
+      ]
+    },
+    "role_migrator": {
+      "purpose": "Cambios de esquema y migraciones",
+      "verifiedBehavior": [
+        "Creacion de objeto de esquema permitida",
+        "Eliminacion del objeto de prueba permitida"
+      ]
+    }
+  },
+  "artifacts": [
+    "artifacts/m03-verify.json"
+  ],
+  "security": {
+    "environmentFileVersioned": false,
+    "leastPrivilegeValidated": true,
+    "negativeAccessTests": 4
+  },
+  "assumptions": [
+    "PostgreSQL se utiliza como sistema gestor de base de datos.",
+    "Los permisos se implementan siguiendo el principio de minimo privilegio.",
+    "Docker Compose proporciona el entorno local reproducible.",
+    "Los datos utilizados en las pruebas son sinteticos."
+  ],
+  "limitations": [
+    "La validacion se realizo en el entorno local con Docker Compose.",
+    "La disponibilidad de AWS Academy Learner Lab depende del entorno proporcionado por la institucion."
+  ]
+}
