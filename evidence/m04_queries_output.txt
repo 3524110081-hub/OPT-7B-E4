@@ -1,0 +1,72 @@
+1. Insertando eventos continuos con esquemas flexibles (H1)...
+2. Consulta: Eventos de un dispositivo en un intervalo...
+{
+    "Items": [
+        {
+            "observed_at": {
+                "S": "2026-09-27T10:00:00Z"
+            },
+            "device_id": {
+                "S": "DEV-001"
+            },
+            "metric": {
+                "S": "temperature"
+            },
+            "value": {
+                "N": "22.5"
+            }
+        },
+        {
+            "observed_at": {
+                "S": "2026-09-27T10:05:00Z"
+            },
+            "device_id": {
+                "S": "DEV-001"
+            },
+            "extra_field": {
+                "S": "sensor_calibrated"
+            },
+            "metric": {
+                "S": "humidity"
+            },
+            "value": {
+                "N": "55"
+            }
+        }
+    ],
+    "Count": 2,
+    "ScannedCount": 2,
+    "ConsumedCapacity": null
+}
+3. Consulta: Ultimos eventos...
+{
+    "Items": [
+        {
+            "observed_at": {
+                "S": "2026-09-27T10:05:00Z"
+            },
+            "device_id": {
+                "S": "DEV-001"
+            },
+            "extra_field": {
+                "S": "sensor_calibrated"
+            },
+            "metric": {
+                "S": "humidity"
+            },
+            "value": {
+                "N": "55"
+            }
+        }
+    ],
+    "Count": 1,
+    "ScannedCount": 1,
+    "LastEvaluatedKey": {
+        "device_id": {
+            "S": "DEV-001"
+        },
+        "observed_at": {
+            "S": "2026-09-27T10:05:00Z"
+        }
+    }
+}
