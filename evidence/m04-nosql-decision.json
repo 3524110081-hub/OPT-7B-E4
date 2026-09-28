@@ -1,0 +1,97 @@
+{
+  "assignmentId": "m04-nosql-architecture",
+  "status": "passed",
+  "decision": {
+    "selectedModel": "document",
+    "researchReferenceTechnology": "MongoDB",
+    "prototypeTechnology": "DynamoDB Local",
+    "alternativesEvaluated": [
+      "document",
+      "graph",
+      "column",
+      "object-store"
+    ],
+    "decisionBasis": "weighted-matrix-and-prototype-evidence"
+  },
+  "representativeQueries": [
+    "events-by-device-and-time-range",
+    "latest-event-by-device",
+    "events-by-metric",
+    "continuous-event-insertion"
+  ],
+  "criteria": {
+    "representativeQueries": {
+      "weight": 20
+    },
+    "scalability": {
+      "weight": 20
+    },
+    "writePerformance": {
+      "weight": 15
+    },
+    "schemaFlexibility": {
+      "weight": 10
+    },
+    "consistency": {
+      "weight": 10
+    },
+    "faultTolerance": {
+      "weight": 10
+    },
+    "costAndOperations": {
+      "weight": 5
+    },
+    "cdrlFit": {
+      "weight": 10
+    }
+  },
+  "weightedScores": {
+    "document": 4.65,
+    "graph": 3.40,
+    "column": 4.60,
+    "objectStore": 3.80
+  },
+  "hypotheses": {
+    "H1": {
+      "description": "Document supports variable event fields and device/time queries.",
+      "prototypeStatus": "partially-validated"
+    },
+    "H2": {
+      "description": "Graph provides no clear advantage for queries without complex relationship traversal.",
+      "prototypeStatus": "not-tested"
+    },
+    "H3": {
+      "description": "Wide-column maintains acceptable behavior at high volume with appropriate partitioning.",
+      "prototypeStatus": "not-tested"
+    },
+    "H4": {
+      "description": "Object Store requires additional mechanisms for frequent operational queries.",
+      "prototypeStatus": "not-tested"
+    },
+    "H5": {
+      "description": "The selected model maintains acceptable behavior as dataset size increases.",
+      "prototypeStatus": "not-tested"
+    }
+  },
+  "prototypeEvidence": {
+    "flexibleSchema": "passed",
+    "deviceTimeRangeQuery": "passed",
+    "latestEventQuery": "passed",
+    "metricQuery": "passed",
+    "invalidEventRejection": "passed"
+  },
+  "tests": {
+    "normalCase": "passed",
+    "boundaryCase1": "passed",
+    "boundaryCase2": "passed",
+    "declaredFailure": "passed",
+    "representativeQueries": "passed"
+  },
+  "limitations": [
+    "The prototype uses DynamoDB Local while MongoDB was used as the representative Document technology in the research matrix.",
+    "Scalability was not benchmarked.",
+    "Distributed fault tolerance was not experimentally tested.",
+    "Cost was not experimentally measured.",
+    "Graph, Column and Object Store alternatives were not implemented as equivalent prototypes."
+  ]
+}

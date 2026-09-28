@@ -25,3 +25,12 @@ aws dynamodb query --table-name cdrl_telemetry_docs --endpoint-url $ENDPOINT \
     --expression-attribute-values '{":d":{"S":"DEV-001"}}' \
     --no-scan-index-forward \
     --limit 1
+
+
+echo "4. Consulta: Eventos por metrica..."
+aws dynamodb scan \
+    --table-name cdrl_telemetry_docs \
+    --endpoint-url "$ENDPOINT" \
+    --filter-expression "metric = :m" \
+    --expression-attribute-values \
+    '{":m":{"S":"temperature"}}'
