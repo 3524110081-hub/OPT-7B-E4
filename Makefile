@@ -9,13 +9,17 @@ setup:
 	@sleep 2
 	@bash scripts/migrate.sh
 	@bash scripts/seed.sh
-	@echo "CDRL M01 preparado correctamente."
+	@echo "===> Iniciando servicios Docker..."
+	@docker compose up -d
+	@echo "===> Servicios Docker iniciados."
+	@echo "Proyecto CDRL preparado correctamente."
 
 verify:
 	@bash scripts/verify_base.sh
 	@bash scripts/verify_m01.sh
 	@bash scripts/verify_m02.sh
 	@bash scripts/verify_m03.sh
+	@bash scripts/verify_m04.sh
 
 run:
 	@docker compose up

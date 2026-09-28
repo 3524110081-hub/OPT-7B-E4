@@ -1,0 +1,30 @@
+CDRL starter base verification passed
+===> Ejecutando verificacion de M01...
+========================================
+ M01 - Pruebas de Seed y Telemetría
+========================================
+
+[1/4] Caso normal
+Verificando que exista el evento CPU del seed...
+OK: caso normal aceptado
+
+[2/4] Caso límite inferior
+Probando CPU = 0...
+INSERT 0 0
+OK: límite inferior aceptado
+
+[3/4] Caso límite superior
+Probando CPU = 100...
+INSERT 0 0
+OK: límite superior aceptado
+
+[4/4] Fallo declarado
+Probando CPU = 101...
+El valor debe ser rechazado por la base de datos.
+OK: el valor 101 fue rechazado correctamente
+
+========================================
+ M01: TODAS LAS PRUEBAS PASARON
+========================================
+==> Resultado generado en artifacts/m01-verify.json
+===> Verificación de M01 completada.
