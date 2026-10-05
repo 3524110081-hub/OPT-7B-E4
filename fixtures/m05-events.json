@@ -1,0 +1,26 @@
+[
+  {
+    "eventId": "EVT-001",
+    "type": "temperature",
+    "source": "DEV-001",
+    "timestamp": "2026-10-04T18:00:00Z",
+    "value": 22.5,
+    "unit": "celsius"
+  },
+  {
+    "eventId": "EVT-002",
+    "type": "humidity",
+    "source": "DEV-001",
+    "timestamp": "2026-10-04T18:05:00Z",
+    "value": 55,
+    "unit": "percent"
+  },
+  {
+    "eventId": "EVT-003",
+    "type": "temperature",
+    "source": "DEV-002",
+    "timestamp": "2026-10-04T18:10:00Z",
+    "value": 24.8,
+    "unit": "celsius"
+  }
+]
