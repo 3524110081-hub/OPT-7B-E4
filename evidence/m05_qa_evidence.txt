@@ -1,0 +1,9 @@
+========================================
+ M05 - QA y Automatización de Pruebas
+========================================
+[PASS] Caso normal: Documento insertado correctamente.
+[PASS] Caso límite 1 (Idempotencia): Duplicado de red rechazado correctamente.
+[PASS] Caso límite 2 (Esquema flexible): Documento aceptado sin campos no obligatorios.
+[PASS] Fallo declarado: Inserción rechazada de forma segura por falta de eventId.
+Generando artifact machine-readable...
+[PASS] Artifact JSON generado en artifacts/m05-verify.json
