@@ -19,4 +19,40 @@ aws dynamodb query --table-name cdrl_telemetry_docs --endpoint-url $ENDPOINT \
     --key-condition-expression "device_id = :d AND observed_at BETWEEN :start AND :end" \
     --expression-attribute-values '{":d":{"S":"DEV-001"}, ":start":{"S":"2026-09-27T10:00:00Z"}, ":end":{"S":"2026-09-27T10:10:00Z"}}' > /dev/null
 
-echo "===> M05: TODO Integrante 2 (CRUD en tabla cdrl_events)..."
+echo ""
+echo "========================================"
+echo " M05 - Almacen documental de eventos"
+echo "========================================"
+
+echo ""
+echo "[1/7] Cargando fixtures..."
+bash scripts/m05_seed.sh
+
+echo ""
+echo "[2/7] CREATE..."
+bash scripts/m05_create.sh
+
+echo ""
+echo "[3/7] Duplicado..."
+bash scripts/m05_duplicate.sh
+
+echo ""
+echo "[4/7] READ..."
+bash scripts/m05_read.sh
+
+echo ""
+echo "[5/7] UPDATE..."
+bash scripts/m05_update.sh
+
+echo ""
+echo "[6/7] DELETE..."
+bash scripts/m05_delete.sh
+
+echo ""
+echo "[7/7] Manejo de ausencia..."
+bash scripts/m05_absence.sh
+
+echo ""
+echo "========================================"
+echo " M05 - CRUD completado correctamente"
+echo "========================================"

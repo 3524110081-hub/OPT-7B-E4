@@ -1,0 +1,155 @@
+CDRL starter base verification passed
+===> Ejecutando verificacion de M01...
+========================================
+ M01 - Pruebas de Seed y Telemetría
+========================================
+
+[1/4] Caso normal
+Verificando que exista el evento CPU del seed...
+OK: caso normal aceptado
+
+[2/4] Caso límite inferior
+Probando CPU = 0...
+INSERT 0 0
+OK: límite inferior aceptado
+
+[3/4] Caso límite superior
+Probando CPU = 100...
+INSERT 0 0
+OK: límite superior aceptado
+
+[4/4] Fallo declarado
+Probando CPU = 101...
+El valor debe ser rechazado por la base de datos.
+OK: el valor 101 fue rechazado correctamente
+
+========================================
+ M01: TODAS LAS PRUEBAS PASARON
+========================================
+==> Resultado generado en artifacts/m01-verify.json
+===> Verificación de M01 completada.
+========================================
+ CDRL - Verificacion M02
+========================================
+
+==> Ejecutando pruebas M02...
+========================================
+ M02 - Pruebas del modelo relacional
+========================================
+
+[1/5] Caso normal
+Verificando dispositivo con telemetria...
+PASS: caso normal correcto
+
+[2/5] Caso vacio
+Verificando dispositivo sin eventos de telemetria...
+PASS: caso vacio correcto
+
+[3/5] Caso limite
+Verificando cadenas no vacias de longitud minima...
+PASS: caso limite aceptado
+
+[4/5] Consulta parametrizada
+Verificando PREPARE y EXECUTE...
+PASS: consulta parametrizada ejecutada correctamente
+
+[5/5] Fallo declarado
+Intentando insertar device_uid vacio...
+PASS: PostgreSQL rechazo correctamente el dato invalido
+
+========================================
+ M02: TODAS LAS PRUEBAS PASARON
+========================================
+
+==> Artifact generado: artifacts/m02-verify.json
+==> Verificacion M02 completada correctamente.
+========================================
+ CDRL - Verificacion M03
+========================================
+
+==> Ejecutando pruebas M03...
+========================================
+ M03 - Seguridad y minimo privilegio
+========================================
+
+[1/9] Caso normal: reader puede hacer SELECT
+PASS: role_reader puede consultar devices
+
+[2/9] Caso limite 1: writer puede hacer INSERT
+PASS: role_writer puede insertar
+
+[3/9] Caso limite 2: operator puede consultar devices
+PASS: role_operator puede consultar devices
+
+[4/9] Negativa 1: reader intenta INSERT
+PASS: INSERT correctamente denegado a role_reader
+
+[5/9] Negativa 2: reader intenta UPDATE
+PASS: UPDATE correctamente denegado a role_reader
+
+[6/9] Negativa 3: writer intenta ALTER TABLE
+PASS: ALTER TABLE correctamente denegado a role_writer
+
+[7/9] Fallo declarado: operator intenta acceder a telemetry_events
+PASS: acceso a telemetry_events correctamente denegado
+
+[8/9] Verificando secretos versionados
+PASS: .env no esta versionado
+
+[9/9] Migrator puede realizar operaciones de migracion
+PASS: role_migrator puede realizar operaciones de migracion
+
+========================================
+ M03: TODAS LAS PRUEBAS PASARON
+========================================
+
+==> Artifact generado:
+artifacts/m03-verify.json
+
+========================================
+ M03: VERIFICACION COMPLETADA
+========================================
+========================================
+ CDRL - Verificacion M04
+========================================
+
+[1/4] Preparando prototipo NoSQL...
+===> Configurando prototipo Document Store (DynamoDB Local)...
+===> Prototipo Document creado exitosamente.
+
+[2/4] Cargando datos y consultas...
+PASS - Datos de prueba preparados
+
+[3/4] Ejecutando pruebas M04...
+========================================
+ M04 - Pruebas NoSQL
+========================================
+
+[1/5] Caso normal - eventos de DEV-001
+PASS - DEV-001 contiene 2 eventos
+
+[2/5] Caso limite 1 - intervalo con un solo evento
+PASS - Se obtuvo exactamente 1 evento
+
+[3/5] Caso limite 2 - dispositivo inexistente
+PASS - Dispositivo inexistente devuelve 0 eventos
+
+[4/5] Fallo declarado - evento sin claves obligatorias
+PASS - DynamoDB rechazo correctamente el evento invalido
+
+[5/5] Consulta representativa - metric=temperature
+PASS - Se encontro 1 evento temperature
+
+========================================
+ M04: TODAS LAS PRUEBAS PASARON
+========================================
+
+[4/4] Generando artifact...
+PASS - Artifact generado
+
+Artifact:
+artifacts/m04-nosql-evaluation.json
+
+========================================
+ M04: VERIFICACION COMPLETADA
+========================================
