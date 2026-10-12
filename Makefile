@@ -20,6 +20,7 @@ verify:
 	@bash scripts/verify_m02.sh
 	@bash scripts/verify_m03.sh
 	@bash scripts/verify_m04.sh
+	@bash scripts/verify_m06.sh
 
 run:
 	@docker compose up
