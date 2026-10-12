@@ -1,0 +1,12 @@
+=== M06: Evolución de esquema y auditoría segura ===
+Endpoint: http://127.0.0.1:8000
+Fecha UTC: 2026-10-12T03:52:46Z
+PASS: Las tablas de eventos, auditoría y respaldo existen.
+PASS: v1 y v2 coexisten y conservan sus versiones.
+PASS: El evento de prueba está respaldado.
+PASS: Falla controlada verificada; evento ausente en la tabla principal.
+PASS: El evento permanece en el respaldo.
+PASS: Auditoría verificada; registros encontrados: 7.
+Resultado: PASS
+Evidencia de texto: artifacts/m06_result.txt
+=== M06 completado correctamente ===
