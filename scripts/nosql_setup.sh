@@ -49,4 +49,7 @@ aws dynamodb put-item --table-name cdrl_events --endpoint-url $ENDPOINT --region
 # Guardar en el backup (simulando que el backup automático lo respaldó hace 40 minutos)
 aws dynamodb put-item --table-name cdrl_events_backup --endpoint-url $ENDPOINT --region us-east-1 --item "$DOC_V1"
 
+echo "===> M07: preparando el estado base heredado v1..."
+bash scripts/m07_seed_legacy.sh
+
 echo "===> Infraestructura preparada exitosamente."
