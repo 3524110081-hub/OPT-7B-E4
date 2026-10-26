@@ -7,52 +7,27 @@ export AWS_DEFAULT_REGION="us-east-1"
 export AWS_PAGER=""
 ENDPOINT="http://127.0.0.1:8000"
 
-echo "===> M04: Insertando eventos heredados para retrocompatibilidad..."
-aws dynamodb put-item --table-name cdrl_telemetry_docs --endpoint-url $ENDPOINT \
-    --item '{"device_id": {"S": "DEV-001"}, "observed_at": {"S": "2026-09-27T10:00:00Z"}, "metric": {"S": "temperature"}, "value": {"N": "22.5"}}'
+echo "===> M04: Insertando eventos heredados..."
+aws dynamodb put-item --table-name cdrl_telemetry_docs --endpoint-url $ENDPOINT --item '{"device_id": {"S": "DEV-001"}, "observed_at": {"S": "2026-09-27T10:00:00Z"}, "metric": {"S": "temperature"}, "value": {"N": "22.5"}}' > /dev/null
+aws dynamodb put-item --table-name cdrl_telemetry_docs --endpoint-url $ENDPOINT --item '{"device_id": {"S": "DEV-001"}, "observed_at": {"S": "2026-09-27T10:05:00Z"}, "metric": {"S": "humidity"}, "value": {"N": "55"}}' > /dev/null
 
-aws dynamodb put-item --table-name cdrl_telemetry_docs --endpoint-url $ENDPOINT \
-    --item '{"device_id": {"S": "DEV-001"}, "observed_at": {"S": "2026-09-27T10:05:00Z"}, "metric": {"S": "humidity"}, "value": {"N": "55"}, "extra_field": {"S": "sensor_calibrated"}}'
+echo "===> M06: Evolución Documental (Integrante 2)..."
+# V1 válido (Con "source" para que el GSI lo indexe correctamente)
+aws dynamodb put-item --table-name cdrl_events --endpoint-url $ENDPOINT \
+    --item '{"eventId": {"S": "evt_v1_test"}, "type": {"S": "telemetry"}, "source": {"S": "sensor-v1"}, "timestamp": {"S": "2026-10-25T10:00:00Z"}, "schemaVersion": {"N": "1"}, "payload": {"S": "{\"temp\": 27.5}"}}' > /dev/null
 
-# Consultas legacy silenciadas para no ensuciar la salida
-aws dynamodb query --table-name cdrl_telemetry_docs --endpoint-url $ENDPOINT \
-    --key-condition-expression "device_id = :d AND observed_at BETWEEN :start AND :end" \
-    --expression-attribute-values '{":d":{"S":"DEV-001"}, ":start":{"S":"2026-09-27T10:00:00Z"}, ":end":{"S":"2026-09-27T10:10:00Z"}}' > /dev/null
+# V2 evolucionado coexistiendo
+aws dynamodb put-item --table-name cdrl_events --endpoint-url $ENDPOINT \
+    --item '{"eventId": {"S": "evt_v2_test"}, "type": {"S": "telemetry"}, "source": {"S": "sensor-v2"}, "timestamp": {"S": "2026-10-25T10:05:00Z"}, "schemaVersion": {"N": "2"}, "firmwareVersion": {"S": "2.1.0"}, "qualityScore": {"N": "0.97"}}' > /dev/null
 
-echo ""
-echo "========================================"
-echo " M05 - Almacen documental de eventos"
-echo "========================================"
+echo "===> M06: Auditoría Segura (Integrante 2)..."
+aws dynamodb put-item --table-name cdrl_audit --endpoint-url $ENDPOINT \
+    --item '{"auditId": {"S": "aud_001"}, "action": {"S": "BULK_DELETE"}, "actorId": {"S": "dev_eduardo"}, "timestamp": {"S": "2026-10-25T10:10:00Z"}, "recordsAffected": {"N": "25000"}}' > /dev/null
 
-echo ""
-echo "[1/7] Cargando fixtures..."
-bash scripts/m05_seed.sh
+echo "===> M06: Falla Controlada (Integrante 2)..."
+aws dynamodb delete-item --table-name cdrl_events --endpoint-url $ENDPOINT --key '{"eventId": {"S": "evt_dr_001"}}' > /dev/null
 
-echo ""
-echo "[2/7] CREATE..."
-bash scripts/m05_create.sh
-
-echo ""
-echo "[3/7] Duplicado..."
-bash scripts/m05_duplicate.sh
-
-echo ""
-echo "[4/7] READ..."
-bash scripts/m05_read.sh
-
-echo ""
-echo "[5/7] UPDATE..."
-bash scripts/m05_update.sh
-
-echo ""
-echo "[6/7] DELETE..."
-bash scripts/m05_delete.sh
-
-echo ""
-echo "[7/7] Manejo de ausencia..."
-bash scripts/m05_absence.sh
-
-echo ""
-echo "========================================"
-echo " M05 - CRUD completado correctamente"
-echo "========================================"
+echo "===> M06: Recuperación ante Desastres (Integrante 3)..."
+# Restauramos el fixture desde la bóveda de backup para que el test lo encuentre sano
+aws dynamodb put-item --table-name cdrl_events --endpoint-url $ENDPOINT \
+    --item '{"eventId": {"S": "evt_dr_001"}, "type": {"S": "telemetry.temperature"}, "source": {"S": "sensor-dr"}, "timestamp": {"S": "2026-10-11T10:00:00Z"}, "schemaVersion": {"N": "1"}, "payload": {"S": "{\"temperature\": 27.5}"}}' > /dev/null

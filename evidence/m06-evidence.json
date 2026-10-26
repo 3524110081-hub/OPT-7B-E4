@@ -9,9 +9,9 @@
   "recoveryVerification": "PASS",
   "backupEqualsRestored": true,
   "recoveryPerformed": true,
-  "recoveryDurationMs": 1917.289,
+  "recoveryDurationMs": 918.886,
   "documentSha256": "bce7bbb6b0bbb2ae697d0a7dceaa857c9f1074df5b8b68cf3963113a815baf27",
-  "verifiedAtUtc": "2026-10-12T05:43:37.816207+00:00",
+  "verifiedAtUtc": "2026-10-26T04:06:17.498104+00:00",
   "verificationLog": "evidence/m06-verify-output.txt",
   "recoveryEvidence": "evidence/m06-recovery.json"
 }
