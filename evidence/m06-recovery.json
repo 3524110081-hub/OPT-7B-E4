@@ -5,9 +5,9 @@
   "backupTable": "cdrl_events_backup",
   "destinationTable": "cdrl_events",
   "recoveryPerformed": true,
-  "recoveryDurationMs": 1917.289,
+  "recoveryDurationMs": 1839.862,
   "backupEqualsRestored": true,
   "documentSha256": "bce7bbb6b0bbb2ae697d0a7dceaa857c9f1074df5b8b68cf3963113a815baf27",
-  "verifiedAtUtc": "2026-10-12T05:43:31.843456+00:00",
+  "verifiedAtUtc": "2026-10-12T05:48:53.835118+00:00",
   "measurementScope": "restore and verification; excludes prior downtime"
 }

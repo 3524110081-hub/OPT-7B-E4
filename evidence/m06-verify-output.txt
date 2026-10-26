@@ -41,7 +41,7 @@ El respaldo permanece disponible.
 ========================================
 Restaurando documento...
 PASS - Documento identico al respaldo.
-PASS - Restauracion completada en 1917.289 ms.
+PASS - Restauracion completada en 1839.862 ms.
 Evidencia: evidence/m06-recovery.json
 ===> Recuperacion completada.
 
@@ -64,7 +64,7 @@ PASS - Sin campos de credenciales o secretos
 [4/5] Fallo declarado: Recuperacion
 PASS - Documento recuperado correctamente
 PASS - Integridad SHA-256 comprobada
-Tiempo de recuperacion: 1917.289 ms
+Tiempo de recuperacion: 1839.862 ms
 
 [5/5] Consultas usando indices
 PASS - Consulta correcta usando TypeTimestampIndex
