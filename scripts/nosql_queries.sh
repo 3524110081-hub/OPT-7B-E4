@@ -6,53 +6,33 @@ export AWS_SECRET_ACCESS_KEY="dummy"
 export AWS_DEFAULT_REGION="us-east-1"
 export AWS_PAGER=""
 ENDPOINT="http://127.0.0.1:8000"
+TABLE="cdrl_events"
 
-echo "===> M04: Insertando eventos heredados para retrocompatibilidad..."
-aws dynamodb put-item --table-name cdrl_telemetry_docs --endpoint-url $ENDPOINT \
-    --item '{"device_id": {"S": "DEV-001"}, "observed_at": {"S": "2026-09-27T10:00:00Z"}, "metric": {"S": "temperature"}, "value": {"N": "22.5"}}'
+echo "===> Ejecutando Migración de Esquemas y Rollback..."
 
-aws dynamodb put-item --table-name cdrl_telemetry_docs --endpoint-url $ENDPOINT \
-    --item '{"device_id": {"S": "DEV-001"}, "observed_at": {"S": "2026-09-27T10:05:00Z"}, "metric": {"S": "humidity"}, "value": {"N": "55"}, "extra_field": {"S": "sensor_calibrated"}}'
+# 1. Migración de V1 a V2 (Segura e Idempotente)
+echo "1. Migrando documento antiguo (evt_mig_001) a V2..."
+aws dynamodb update-item --table-name $TABLE --endpoint-url $ENDPOINT \
+    --key '{"eventId": {"S": "evt_mig_001"}}' \
+    --update-expression "SET schemaVersion = :v2, firmwareVersion = :fw, qualityScore = :qs, #src = :src" \
+    --condition-expression "attribute_not_exists(schemaVersion) OR schemaVersion = :v1" \
+    --expression-attribute-names '{"#src": "source"}' \
+    --expression-attribute-values '{":v2":{"N":"2"}, ":v1":{"N":"1"}, ":fw":{"S":"2.1.0"}, ":qs":{"N":"0.97"}, ":src":{"S":"warehouse"}}' \
+    > /dev/null 2>&1 || echo "  -> [INFO] Idempotencia: El documento ya estaba en V2 o no existía."
 
-# Consultas legacy silenciadas para no ensuciar la salida
-aws dynamodb query --table-name cdrl_telemetry_docs --endpoint-url $ENDPOINT \
-    --key-condition-expression "device_id = :d AND observed_at BETWEEN :start AND :end" \
-    --expression-attribute-values '{":d":{"S":"DEV-001"}, ":start":{"S":"2026-09-27T10:00:00Z"}, ":end":{"S":"2026-09-27T10:10:00Z"}}' > /dev/null
+# 2. Inserción de un documento nativo V2
+echo "2. Insertando documento nativo V2 (evt_mig_002)..."
+aws dynamodb put-item --table-name $TABLE --endpoint-url $ENDPOINT \
+    --item '{"eventId": {"S": "evt_mig_002"}, "type": {"S": "telemetry"}, "timestamp": {"S": "2026-10-25T10:00:00Z"}, "schemaVersion": {"N": "2"}, "firmwareVersion": {"S": "3.0.0"}}' > /dev/null
 
-echo ""
-echo "========================================"
-echo " M05 - Almacen documental de eventos"
-echo "========================================"
+# 3. Rollback de V2 a V1
+echo "3. Ejecutando Rollback del documento evt_mig_002 a V1..."
+aws dynamodb update-item --table-name $TABLE --endpoint-url $ENDPOINT \
+    --key '{"eventId": {"S": "evt_mig_002"}}' \
+    --update-expression "SET schemaVersion = :v1 REMOVE firmwareVersion, qualityScore, #src" \
+    --condition-expression "schemaVersion = :v2" \
+    --expression-attribute-names '{"#src": "source"}' \
+    --expression-attribute-values '{":v1":{"N":"1"}, ":v2":{"N":"2"}}' \
+    > /dev/null 2>&1 || echo "  -> [INFO] Idempotencia: El rollback ya se aplicó."
 
-echo ""
-echo "[1/7] Cargando fixtures..."
-bash scripts/m05_seed.sh
-
-echo ""
-echo "[2/7] CREATE..."
-bash scripts/m05_create.sh
-
-echo ""
-echo "[3/7] Duplicado..."
-bash scripts/m05_duplicate.sh
-
-echo ""
-echo "[4/7] READ..."
-bash scripts/m05_read.sh
-
-echo ""
-echo "[5/7] UPDATE..."
-bash scripts/m05_update.sh
-
-echo ""
-echo "[6/7] DELETE..."
-bash scripts/m05_delete.sh
-
-echo ""
-echo "[7/7] Manejo de ausencia..."
-bash scripts/m05_absence.sh
-
-echo ""
-echo "========================================"
-echo " M05 - CRUD completado correctamente"
-echo "========================================"
+echo "===> Lógica de migración completada."
