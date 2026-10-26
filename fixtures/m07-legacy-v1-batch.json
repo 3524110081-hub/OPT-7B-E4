@@ -1,0 +1,52 @@
+{
+  "cdrl_events": [
+    {
+      "PutRequest": {
+        "Item": {
+          "eventId": {"S": "M07-LEGACY-001"},
+          "type": {"S": "telemetry.temperature"},
+          "source": {"S": "sensor-legacy-001"},
+          "timestamp": {"S": "2026-10-18T10:00:00Z"},
+          "schemaVersion": {"N": "1"},
+          "payload": {"S": "{\"temperature\":22.5,\"unit\":\"celsius\"}"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "eventId": {"S": "M07-LEGACY-002"},
+          "type": {"S": "telemetry.humidity"},
+          "source": {"S": "sensor-legacy-001"},
+          "timestamp": {"S": "2026-10-18T10:05:00Z"},
+          "schemaVersion": {"N": "1"},
+          "payload": {"S": "{\"humidity\":55,\"unit\":\"percent\"}"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "eventId": {"S": "M07-LEGACY-003"},
+          "type": {"S": "telemetry.temperature"},
+          "source": {"S": "sensor-legacy-002"},
+          "timestamp": {"S": "2026-10-18T10:10:00Z"},
+          "schemaVersion": {"N": "1"},
+          "payload": {"S": "{\"temperature\":24.8,\"unit\":\"celsius\"}"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "eventId": {"S": "M07-LEGACY-004"},
+          "type": {"S": "telemetry.pressure"},
+          "source": {"S": "sensor-legacy-003"},
+          "timestamp": {"S": "2026-10-18T10:15:00Z"},
+          "schemaVersion": {"N": "1"},
+          "payload": {"S": "{\"pressure\":101.3,\"unit\":\"kPa\"}"}
+        }
+      }
+    }
+  ]
+}

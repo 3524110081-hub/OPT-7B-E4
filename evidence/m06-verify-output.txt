@@ -1,87 +1,184 @@
 ========================================
+========================================
+ CDRL - Verificacion Semana 6
  CDRL - Verificacion Semana 6
 ========================================
+========================================
+
 
 [0/6] Comprobando infraestructura...
+[0/6] Comprobando infraestructura...
+PASS - Tabla cdrl_events disponible
 PASS - Tabla cdrl_events disponible
 PASS - Tabla cdrl_events_backup disponible
+PASS - Tabla cdrl_events_backup disponible
+PASS - Tabla cdrl_audit disponible
 PASS - Tabla cdrl_audit disponible
 
+
+[1/6] Evolucion documental...
 [1/6] Evolucion documental...
 ========================================
  M06 - Evolucion documental
 ========================================
 Consultando documento v1...
+========================================
+ M06 - Evolucion documental
+========================================
+Consultando documento v1...
+Verificando si ya existe la version 2...
 Verificando si ya existe la version 2...
 PASS - Documento v2 creado correctamente.
 ===> Evolucion documental completada.
+PASS - Documento v2 creado correctamente.
+===> Evolucion documental completada.
 
+
+[2/6] Auditoria de operaciones...
 [2/6] Auditoria de operaciones...
 ========================================
  M06 - Auditoria de operaciones
 ========================================
+========================================
+ M06 - Auditoria de operaciones
+========================================
+Registrando modificacion y auditoria...
 Registrando modificacion y auditoria...
 PASS - Modificacion registrada correctamente.
 PASS - Auditoria generada.
 ===> Auditoria completada.
+PASS - Modificacion registrada correctamente.
+PASS - Auditoria generada.
+===> Auditoria completada.
 
+
+[3/6] Simulacion de falla...
 [3/6] Simulacion de falla...
 ========================================
  M06 - Simulacion de falla controlada
 ========================================
+========================================
+ M06 - Simulacion de falla controlada
+========================================
+PASS - Respaldo verificado correctamente.
 PASS - Respaldo verificado correctamente.
 Eliminando unicamente el fixture sintetico...
+Eliminando unicamente el fixture sintetico...
+PASS - Falla controlada comprobada.
 PASS - Falla controlada comprobada.
 El respaldo permanece disponible.
 ===> Simulacion completada.
+El respaldo permanece disponible.
+===> Simulacion completada.
 
+
+[4/6] Recuperacion desde respaldo...
 [4/6] Recuperacion desde respaldo...
 ========================================
  M06 - Recuperacion desde respaldo
 ========================================
+========================================
+ M06 - Recuperacion desde respaldo
+========================================
+Restaurando documento...
 Restaurando documento...
 PASS - Documento identico al respaldo.
+<<<<<<< HEAD
 PASS - Restauracion completada en 1839.862 ms.
+=======
+PASS - Restauracion completada en 929.893 ms.
+Evidencia: evidence/m06-recovery.json
+===> Recuperacion completada.
+PASS - Documento identico al respaldo.
+PASS - Restauracion completada en 929.893 ms.
+>>>>>>> b7bfffaecaa4ce574c8bc51e732eadd48edc2086
 Evidencia: evidence/m06-recovery.json
 ===> Recuperacion completada.
 
+
+[5/6] Ejecutando pruebas M06...
 [5/6] Ejecutando pruebas M06...
 ========================================
  M06 - Pruebas automatizadas
 ========================================
 
 [1/5] Caso normal: Documento v2
+========================================
+ M06 - Pruebas automatizadas
+========================================
+
+[1/5] Caso normal: Documento v2
+PASS - Documento v2 valido y consultable
 PASS - Documento v2 valido y consultable
 
+
 [2/5] Caso limite 1: Compatibilidad v1
+[2/5] Caso limite 1: Compatibilidad v1
+PASS - Documento v1 conservado y compatible
+PASS - Respaldo intacto
 PASS - Documento v1 conservado y compatible
 PASS - Respaldo intacto
 
 [3/5] Caso limite 2: Auditoria
+
+[3/5] Caso limite 2: Auditoria
+PASS - Auditoria registrada correctamente
+PASS - Sin campos de credenciales o secretos
 PASS - Auditoria registrada correctamente
 PASS - Sin campos de credenciales o secretos
 
 [4/5] Fallo declarado: Recuperacion
+
+[4/5] Fallo declarado: Recuperacion
 PASS - Documento recuperado correctamente
 PASS - Integridad SHA-256 comprobada
+<<<<<<< HEAD
 Tiempo de recuperacion: 1839.862 ms
+=======
+Tiempo de recuperacion: 929.893 ms
+PASS - Documento recuperado correctamente
+PASS - Integridad SHA-256 comprobada
+Tiempo de recuperacion: 929.893 ms
+
+[5/5] Consultas usando indices
+>>>>>>> b7bfffaecaa4ce574c8bc51e732eadd48edc2086
 
 [5/5] Consultas usando indices
 PASS - Consulta correcta usando TypeTimestampIndex
+PASS - Consulta correcta usando TypeTimestampIndex
 PASS - Consulta correcta usando SourceTimestampIndex
+PASS - Consulta correcta usando SourceTimestampIndex
+
+========================================
 
 ========================================
  M06: TODAS LAS PRUEBAS PASARON
 ========================================
+ M06: TODAS LAS PRUEBAS PASARON
+========================================
+
 
 [6/6] Generando artifacts y evidence...
+[6/6] Generando artifacts y evidence...
+PASS - Artifact generado
+PASS - Evidencia generada
 
+
+========================================
 ========================================
  M06: VERIFICACION COMPLETADA
+ M06: VERIFICACION COMPLETADA
+========================================
 ========================================
 
+
+Archivos generados:
 Archivos generados:
 artifacts/m06-verify.json
+artifacts/m06-verify.json
+evidence/m06-evidence.json
 evidence/m06-evidence.json
 evidence/m06-recovery.json
+evidence/m06-recovery.json
+evidence/m06-verify-output.txt
 evidence/m06-verify-output.txt

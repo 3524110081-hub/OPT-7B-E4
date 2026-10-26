@@ -1,0 +1,16 @@
+{
+  "assignmentId": "m04-nosql-architecture",
+  "status": "passed",
+  "database": {
+    "engine": "DynamoDB Local",
+    "table": "cdrl_telemetry_docs",
+    "endpoint": "http://127.0.0.1:8000"
+  },
+  "tests": {
+    "normalCase": "passed",
+    "boundaryCase1": "passed",
+    "boundaryCase2": "passed",
+    "declaredFailure": "passed",
+    "representativeQueries": "passed"
+  }
+}

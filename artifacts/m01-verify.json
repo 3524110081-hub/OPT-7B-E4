@@ -1,0 +1,22 @@
+{
+  "assignmentId": "m01-data-contract",
+  "status": "passed",
+  "tests": {
+    "normalCase": {
+      "description": "cpu_usage = 50 desde el seed",
+      "status": "passed"
+    },
+    "lowerBoundary": {
+      "description": "cpu_usage = 0",
+      "status": "passed"
+    },
+    "upperBoundary": {
+      "description": "cpu_usage = 100",
+      "status": "passed"
+    },
+    "declaredFailure": {
+      "description": "cpu_usage = 101 rechazado por la base de datos",
+      "status": "passed"
+    }
+  }
+}
