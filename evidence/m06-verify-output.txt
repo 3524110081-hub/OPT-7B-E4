@@ -83,15 +83,11 @@ El respaldo permanece disponible.
 Restaurando documento...
 Restaurando documento...
 PASS - Documento identico al respaldo.
-<<<<<<< HEAD
-PASS - Restauracion completada en 1839.862 ms.
-=======
 PASS - Restauracion completada en 929.893 ms.
 Evidencia: evidence/m06-recovery.json
 ===> Recuperacion completada.
 PASS - Documento identico al respaldo.
 PASS - Restauracion completada en 929.893 ms.
->>>>>>> b7bfffaecaa4ce574c8bc51e732eadd48edc2086
 Evidencia: evidence/m06-recovery.json
 ===> Recuperacion completada.
 
