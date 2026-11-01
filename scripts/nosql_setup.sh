@@ -52,4 +52,8 @@ aws dynamodb put-item --table-name cdrl_events_backup --endpoint-url $ENDPOINT -
 echo "===> M07: preparando el estado base heredado v1..."
 bash scripts/m07_seed_legacy.sh
 
+# --- INYECCIÓN MASIVA M08: BASELINE DE RENDIMIENTO ---
+echo "===> M08: insertando 150 documentos sintéticos para la línea base..."
+bash scripts/m08_seed_bulk.sh
+
 echo "===> Infraestructura preparada exitosamente."
