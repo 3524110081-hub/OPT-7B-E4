@@ -22,27 +22,30 @@ jobs:
           set -euo pipefail
           make setup
 
-      - name: Diagnose DynamoDB Local
+      - name: Fix DynamoDB Local permissions
         shell: bash
         env:
           AWS_ACCESS_KEY_ID: dummy
           AWS_SECRET_ACCESS_KEY: dummy
           AWS_DEFAULT_REGION: us-east-1
           AWS_PAGER: ""
-          AWS_RETRY_MODE: standard
           AWS_MAX_ATTEMPTS: "1"
         run: |
           set -euo pipefail
 
-          echo "=== Estado de los contenedores ==="
-          docker compose ps -a
+          echo "=== Corrigiendo propietario de la carpeta de DynamoDB ==="
 
-          echo "=== Registros iniciales de DynamoDB ==="
-          docker compose logs --no-color --tail=80 dynamodb || true
+          docker compose exec -T -u 0 dynamodb sh -lc \
+            'chown -R 1000:1000 /home/dynamodblocal/data'
 
-          echo "=== Permisos de la base de datos ==="
+          echo "=== Verificando permisos corregidos ==="
+
           docker compose exec -T dynamodb sh -lc \
-            'id; ls -lan /home/dynamodblocal/data' || true
+            'ls -ldn /home/dynamodblocal/data'
+
+          echo "=== Reiniciando DynamoDB Local ==="
+
+          docker compose restart dynamodb
 
           echo "=== Comprobando conexión con DynamoDB ==="
 
@@ -54,16 +57,14 @@ jobs:
               --region us-east-1 \
               --cli-connect-timeout 2 \
               --cli-read-timeout 3; then
-              echo "PASS - DynamoDB Local está disponible."
+              echo "PASS - DynamoDB Local funciona correctamente."
               exit 0
             fi
 
             sleep 2
           done
 
-          echo "ERROR - DynamoDB Local no responde correctamente."
-          echo "=== Estado final de los contenedores ==="
-          docker compose ps -a
-          echo "=== Registros finales de DynamoDB ==="
+          echo "ERROR - DynamoDB Local sigue sin responder."
+          echo "=== Registros de DynamoDB ==="
           docker compose logs --no-color --tail=150 dynamodb
           exit 1
