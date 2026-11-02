@@ -10,6 +10,6 @@
     "declaredFailure": "PASS",
     "indexedQueries": "PASS"
   },
-  "recoveryDurationMs": 1912.618,
-  "verifiedAtUtc": "2026-10-26T04:55:23.601518+00:00"
+  "recoveryDurationMs": 1876.032,
+  "verifiedAtUtc": "2026-11-02T05:04:46.364326+00:00"
 }
