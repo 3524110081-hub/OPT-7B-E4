@@ -1,0 +1,44 @@
+{
+    "activity": "M08",
+    "verification": "QA, pagination and performance",
+    "status": "PASS",
+    "executed_at": "2026-11-02T04:25:10.132347+00:00",
+    "qa_tests": {
+        "normal_query": "PASS",
+        "limit_without_next_page": "PASS",
+        "invalid_cursor": "PASS"
+    },
+    "benchmark": {
+        "table": "cdrl_events",
+        "filter_type": "temperature",
+        "runs_per_operation": 30,
+        "percentile_method": "nearest_rank",
+        "scan": {
+            "count": 50,
+            "scanned_count": 159,
+            "p50_ms": 920.851,
+            "p95_ms": 1147.861,
+            "consumed_capacity": {
+                "TableName": "cdrl_events",
+                "CapacityUnits": 2.5
+            }
+        },
+        "query": {
+            "count": 50,
+            "scanned_count": 50,
+            "p50_ms": 908.384,
+            "p95_ms": 1138.656,
+            "consumed_capacity": {
+                "TableName": "cdrl_events",
+                "CapacityUnits": 1.0
+            }
+        },
+        "same_returned_count": true
+    },
+    "baseline_full_scan": {
+        "duration_ms": 2237.5,
+        "pages": 1,
+        "scanned_count": 155,
+        "returned_count": 155
+    }
+}
