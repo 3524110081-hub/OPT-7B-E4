@@ -1,0 +1,38 @@
+===== M09: QA DE SEGURIDAD Y AUDITORÍA =====
+Fecha UTC: 2026-11-09T04:46:29Z
+Endpoint: http://127.0.0.1:8000
+[1/5] Comprobando tablas...
+[2/5] Guardando estado previo de auditoría...
+[3/5] Ejecutando escenarios de seguridad...
+===> M09: Inicializando Capa de Seguridad y Auditoría NoSQL...
+===> Ejecutando Pruebas de Seguridad (Simulación de Tráfico)...
+  -> [ALLOW] Usuario 'dev_eduardo' (admin): PutItem en cdrl_events permitido.
+  -> [ALLOW] Usuario 'auditor_externo' (readonly_user): GetItem en cdrl_events permitido.
+  -> [DENY] ALERTA: Usuario 'auditor_externo' (readonly_user) intentó DeleteItem en cdrl_events. OPERACIÓN RECHAZADA.
+  -> [DENY] ALERTA: Usuario 'hacker_anon' (unknown_role) intentó PutItem en cdrl_events. OPERACIÓN RECHAZADA.
+  -> [DENY] ALERTA: Usuario 'hacker_anon' (unknown_role) intentó GetItem en cdrl_events. OPERACIÓN RECHAZADA.
+===> Verificando tabla de auditoría (cdrl_audit)...
+hacker_anon	PutItem	DENY
+dev_eduardo	PutItem	ALLOW
+None	UPDATE	None
+auditor_externo	DeleteItem	DENY
+auditor_externo	GetItem	ALLOW
+hacker_anon	GetItem	DENY
+===> Tareas del Integrante 1 y 2 completadas.
+[4/5] Comprobando persistencia de datos...
+[5/5] Validando los registros nuevos de auditoría...
+authorized_write_persisted: PASSED
+unauthorized_write_absent: PASSED
+admin_write_allowed: PASSED
+readonly_read_allowed: PASSED
+readonly_delete_denied: PASSED
+unknown_role_write_denied: PASSED
+unknown_role_read_denied: PASSED
+audit_required_fields: PASSED
+audit_no_sensitive_fields: PASSED
+audit_no_secret_values: PASSED
+Registros nuevos de auditoría: 5
+Resumen: 10 aprobadas, 0 fallidas.
+Resultado general: PASSED
+Artefacto: artifacts/m09-verify.json
+Evidencia: evidence/m09-evidence.json
