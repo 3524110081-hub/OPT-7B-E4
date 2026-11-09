@@ -21,6 +21,7 @@ verify:
 	@bash scripts/verify_m03.sh
 	@bash scripts/verify_m04.sh
 	@bash scripts/verify_m06.sh
+	@bash scripts/verify_m09.sh
 
 run:
 	@docker compose up

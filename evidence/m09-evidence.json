@@ -1,0 +1,61 @@
+{
+  "module": "M09",
+  "status": "passed",
+  "tables": [
+    "cdrl_events",
+    "cdrl_audit"
+  ],
+  "new_audit_records_checked": 5,
+  "checks": [
+    {
+      "test": "authorized_write_persisted",
+      "status": "passed",
+      "detail": "La persistencia se comprobó mediante AWS CLI antes de esta validación."
+    },
+    {
+      "test": "unauthorized_write_absent",
+      "status": "passed",
+      "detail": "La consulta de evt_sec_denied_001 devolvió None."
+    },
+    {
+      "test": "admin_write_allowed",
+      "status": "passed"
+    },
+    {
+      "test": "readonly_read_allowed",
+      "status": "passed"
+    },
+    {
+      "test": "readonly_delete_denied",
+      "status": "passed"
+    },
+    {
+      "test": "unknown_role_write_denied",
+      "status": "passed"
+    },
+    {
+      "test": "unknown_role_read_denied",
+      "status": "passed"
+    },
+    {
+      "test": "audit_required_fields",
+      "status": "passed"
+    },
+    {
+      "test": "audit_no_sensitive_fields",
+      "status": "passed",
+      "detail": []
+    },
+    {
+      "test": "audit_no_secret_values",
+      "status": "passed",
+      "detail": []
+    }
+  ],
+  "notes": [
+    "Se comparó la auditoría anterior y posterior a la ejecución.",
+    "ALLOW y DENY representan decisiones de autorización.",
+    "Los escenarios utilizan datos sintéticos.",
+    "Se revisaron campos y valores en busca de datos sensibles."
+  ]
+}
